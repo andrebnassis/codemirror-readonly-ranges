@@ -1,0 +1,22 @@
+storage: /verdaccio/storage
+auth:
+  htpasswd:
+    file: /verdaccio/storage/htpasswd
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+packages:
+  "@*/*":
+    access: $all
+    publish: $anonymous
+    unpublish: $anonymous
+    proxy: npmjs
+  "**":
+    access: $all
+    publish: $anonymous
+    unpublish: $anonymous
+    proxy: npmjs
+publish:
+  allow_offline: true
+logs:
+  - { type: stdout, format: pretty, level: http }

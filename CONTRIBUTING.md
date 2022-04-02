@@ -1,0 +1,97 @@
+# Contributing
+
+If you want to start contributing for `CodeMirror ReadOnly Ranges Extension`, read the documentation below to understand more about the project structure and its directives.
+
+## Scripts
+Install the project using `yarn` 
+
+### Build the project locally
+```bash
+yarn build:lib  #Generate a /dist folder.
+```
+
+## Test Library built:
+
+To test your built package we need to go through 2 steps.
+
+- Step 1: Install the built package on a target project
+  - You can choose between 2 methods:
+    - Method A: Linking the built package to a target project
+    - \[**BEST**\] Method B: Publishing to a private registry using Docker + Verdaccio
+- Step 2: Using the library on the target project
+
+### Step1
+#### Method A) Linking the built package to a target project
+
+A.1) After running `yarn build:lib`, on terminal, run:
+
+`yarn link`
+
+It will create a local link of the library named as "codemirror-readonly-ranges" (so you can use it on your target project)
+
+A.2) Inside your target project:
+
+- On terminal, run:
+
+```bash
+yarn link "codemirror-readonly-ranges"
+
+```
+It will allows you to use the generated link on step 1 inside the target project.
+
+#### Method B) Publishing to a private registry using Docker + Verdaccio
+
+B.1) Publish the Package
+```bash
+yarn verdaccio:publish
+```
+PS: You can enter on `http://localhost:4873/` to check the package published.
+
+Troubleshoot:
+
+- If you are having some permission issue:
+On the project root folder, run:
+```bash
+sudo chown -R 10001:65533 /verdaccio
+```
+
+Some command tips:
+
+ - Stop the container:
+```bash
+yarn verdaccio:down
+```
+
+ - Check container files 
+```bash
+docker exec -it verdaccio /bin/sh
+#then you can execute bash commands such as 'ls -a'
+```
+
+ - Check container logs
+```bash
+docker logs verdaccio
+```
+
+B.2) On the `target project`:
+
+First, you need to install the published package. There is two ways to do it, let me show you:  
+(Choose the one that fits best for you)  
+
+Way 01: Configure `.npmrc` and install the library and its dependencies.
+
+  - Create `.npmrc` file with the following content:
+  ```bash
+  registry=https://registry.npmjs.org/
+  codemirror-readonly-ranges:registry=http://localhost:4873
+  ```
+
+> PS: `Way 01` is the best option because automatic identifies when to download from verdaccio's registry, so if you publish many times you just need to run `yarn` or `npm install` to update the `codemirror-readonly-ranges` package (instead of manually ask to download it from verdaccio's registry).
+
+
+Way 02: Install the package pointing directly to verdaccio's registry, then install the related dependencies.
+  
+  -  Install the package pointing directly to verdaccio's registry
+  ```bash
+  yarn add codemirror-readonly-ranges --registry http://localhost:4873
+  ```

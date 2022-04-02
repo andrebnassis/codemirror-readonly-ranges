@@ -1,0 +1,47 @@
+{
+  "name": "codemirror-readonly-ranges",
+  "version": "0.1.0-alpha.0",
+  "description": "Codemirror extension for readonly ranges",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "prebuild:lib": "rimraf dist/",
+    "build:lib": "tsc",
+    "verdaccio:up": "docker-compose -f verdaccio-docker-compose.yaml up -d",
+    "verdaccio:down": "docker-compose -f verdaccio-docker-compose.yaml down -v",
+    "preverdaccio:publish": "cross-var $npm_execpath run verdaccio:down && cross-var $npm_execpath run verdaccio:up",
+    "verdaccio:publish": "npm publish --registry http://localhost:4873/"
+  },
+  "keywords": [
+    "Codemirror",
+    "Typescript",
+    "Library"
+  ],
+  "author": "Andre Borba Netto Assis",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrebnassis/codemirror-readonly-ranges.git"
+  },
+  "homepage": "https://github.com/andrebnassis/codemirror-readonly-ranges#readme",
+  "bugs": {
+    "url": "https://github.com/andrebnassis/codemirror-readonly-ranges/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@codemirror/state": "^0.19.9",
+    "@codemirror/view": "^0.19.48",
+    "cross-var": "^1.1.0",
+    "range-analyzer": "^0.1.1-alpha.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.6.3"
+  },
+  "peerDependencies": {
+    "@codemirror/state": "^0.19.9",
+    "@codemirror/view": "^0.19.48",
+    "range-analyzer": "^0.1.1-alpha.0"
+  }
+}

@@ -1,0 +1,14 @@
+# old package.json script command before using docker-compose file:
+# "verdaccio:up":"docker start verdaccio 2>/dev/null || docker run -it -d --rm --name verdaccio -p 4873:4873 -v $(pwd)/verdaccio/conf:/verdaccio/conf verdaccio/verdaccio",
+
+version: '3.3'
+services:
+    verdaccio:
+        container_name: verdaccio
+        ports:
+            - '4873:4873'
+        volumes:
+            - "./verdaccio/conf:/verdaccio/conf"
+        image: verdaccio/verdaccio
+
+
