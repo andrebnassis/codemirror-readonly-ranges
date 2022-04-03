@@ -1,13 +1,12 @@
 import { Story } from "@storybook/react"
-import {action} from '@storybook/addon-actions'
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CodeEditor from "../resources/code-editor/CodeEditor"
 import { extensions } from "../resources/code-editor/extensions";
 import { EditorView } from "@codemirror/view";
 import { EditorState } from "@codemirror/state";
 import { javascript } from '@codemirror/lang-javascript';
 import { oneDark } from '@codemirror/theme-one-dark';
-import readOnlyRangesExtension from '../../index'
+import readOnlyRangesExtension from '../../lib/index'
 
 export default {
     title: 'Playground',
