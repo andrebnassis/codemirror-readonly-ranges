@@ -1,61 +1,44 @@
-import React, { useEffect, useRef } from 'react';
-import { EditorState } from '@codemirror/state';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { EditorState, StateEffect } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
-import {javascript } from "@codemirror/lang-javascript"
-import { oneDark } from '@codemirror/theme-one-dark';
 import { ICodeEditor } from './ICodeEditor';
-import { extensions } from './extensions';
-import readOnlyRangesExtension from '../../../index';
+import { useFirstRender } from '../custom-hook/useFirstRender';
+
+const CodeEditor:React.FC<ICodeEditor> = ({onView, extensions = [], initialDocValue}) => {
+
+const [editorView, setEditorView] = useState<EditorView | null>(null)
+    
+const isFirstRender = useFirstRender();
+
+const editorRef = useRef<HTMLElement>(null);
+
+const targetExtensions = useMemo(() => {
+    return Array.isArray(extensions) ? extensions : []
+    }, [extensions])
 
 
+useEffect(() => {
+      if (isFirstRender || !editorView) return
 
-const getReadOnlyRanges = (targetState:EditorState):Array<{from:number|undefined, to:number|undefined}> => {
-  return [
-    {
-   from: undefined, //same as targetState.doc.line(0).from or 0
-   to: targetState.doc.line(3).to
-  },
-  {
-    from: targetState.doc.line(targetState.doc.lines).from, 
-    to: undefined // same as targetState.doc.line(targetState.doc.lines).to
-  }
-  ]
-}
+      editorView.dispatch({
+        effects: StateEffect.reconfigure.of(targetExtensions),
+      })
+    }, [targetExtensions])
 
-const fixedHeightEditor = EditorView.theme({
-  "&": {height: "200px"},
-  ".cm-scroller": {overflow: "auto"},
-  ".cm-content, .cm-gutter": {minHeight: "200px"}
-})
-
-
-const CodeEditor:React.FC<ICodeEditor> = ({onView}) => {
-
-const initialCode = `import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
-
-export const themeOptions: ThemeOptions = {
-  palette: {
-    type: 'light',
-  },
-  overrides: {
-  },
-};`
-
-  const editorRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
+useEffect(() => {
     if(editorRef.current === null) return;
 
     const view = new EditorView({
       state: EditorState.create(
         {
-          doc: initialCode,
-          extensions:[ ...Array.of(extensions), javascript(), oneDark, EditorView.lineWrapping, readOnlyRangesExtension(getReadOnlyRanges), fixedHeightEditor],
+          doc: initialDocValue,
+          extensions:[...Array.of(extensions)],
         }
       ),
       parent: editorRef.current,
     });
     
+    setEditorView(view);
     onView(view);
 
     return () => {

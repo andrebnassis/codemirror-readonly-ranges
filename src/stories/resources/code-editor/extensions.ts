@@ -15,7 +15,6 @@ import {rectangularSelection} from "@codemirror/rectangular-selection"
 import {defaultHighlightStyle} from "@codemirror/highlight"
 import { commentKeymap, lineComment, lineUncomment } from "@codemirror/comment"
 
-
 export const extensions: Extension = [
     lineNumbers(),
     highlightActiveLineGutter(),
