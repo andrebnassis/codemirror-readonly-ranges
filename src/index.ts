@@ -2,12 +2,10 @@ import { EditorState, Extension, Transaction } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 import { getAvailableRanges } from "range-analyzer";
 
-
 export const smartDelete = (getReadOnlyRanges:(targetState:EditorState)=>Array<{from:number|undefined, to:number|undefined}>) => EditorState.transactionFilter.of((tr:Transaction) => {
 
-    
-    if(tr.isUserEvent('delete.selection')){
-    
+    if(tr.isUserEvent('delete.selection') && !tr.isUserEvent('delete.selection.smart')){
+
       const initialSelections = tr.startState.selection.ranges.map(range => ({ 
         from: range.from,
         to: range.to
@@ -17,7 +15,15 @@ export const smartDelete = (getReadOnlyRanges:(targetState:EditorState)=>Array<{
     { 
       const readOnlyRanges = getReadOnlyRanges(tr.startState);
       const result = getAvailableRanges(readOnlyRanges, initialSelections[0], {from: 0, to: tr.startState.doc.line(tr.startState.doc.lines).to }) as Array<{from:number, to:number}>;
-      return result.map(range => tr.startState.update({changes:{from:range.from, to: range.to}}));
+     
+      return result.map(range => tr.startState.update(
+          {
+              changes:{
+                  from:range.from, 
+                  to: range.to
+                },
+            annotations: Transaction.userEvent.of(`${tr.annotation(Transaction.userEvent)}.smart`)
+        }));
     }
   }
 
@@ -27,7 +33,7 @@ export const smartDelete = (getReadOnlyRanges:(targetState:EditorState)=>Array<{
   })
 
  export const preventModifyTargetRanges = (getReadOnlyRanges:(targetState:EditorState)=>Array<{from:number|undefined, to:number|undefined}>)  => EditorState.changeFilter.of((tr:Transaction) => {
-    
+  
     try{
     const readOnlyRangesBeforeTransaction = getReadOnlyRanges(tr.startState);
     const readOnlyRangesAfterTransaction = getReadOnlyRanges(tr.state);
@@ -68,7 +74,15 @@ catch(e){
         const result = getAvailableRanges(readOnlyRanges, initialSelections[0], {from: 0, to: view.state.doc.line(view.state.doc.lines).to}) as Array<{from:number, to:number}>;
         if(result.length > 0)
         {
-          view.dispatch({changes:{from: result[0].from, to: result[0].to, insert: pastedData }})
+          view.dispatch(
+            {
+              changes:{
+                  from: result[0].from, 
+                  to: result[0].to, 
+                  insert: pastedData 
+                },
+              annotations: Transaction.userEvent.of(`input.paste.smart`)
+            })
         }
       }
     }
