@@ -36,6 +36,7 @@
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.17.8",
+    "@codemirror/basic-setup": "^0.19.3",
     "@codemirror/closebrackets": "^0.19.2",
     "@codemirror/commands": "^0.19.8",
     "@codemirror/comment": "^0.19.1",
