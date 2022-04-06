@@ -8,8 +8,8 @@ export const ReactSample:Story = () => {
 
   const initialCode = 
   `read-only line 1
-  read-only line 2
-  read-only line 3
+read-only line 2
+read-only line 3
 <Here you can modify>
 read-only line 4` 
   

@@ -85,10 +85,11 @@ First, you need to install the published package. There is two ways to do it, le
 Way 01: Configure `.npmrc` and install the library and its dependencies.
 
   - Create `.npmrc` file with the following content:
-  ```bash
-  registry=https://registry.npmjs.org/
-  codemirror-readonly-ranges:registry=http://localhost:4873
-  ```
+  
+```bash
+registry=https://registry.npmjs.org/
+codemirror-readonly-ranges:registry=http://localhost:4873
+```
 
 > PS: `Way 01` is the best option because automatic identifies when to download from verdaccio's registry, so if you publish many times you just need to run `yarn` or `npm install` to update the `codemirror-readonly-ranges` package (instead of manually ask to download it from verdaccio's registry).
 
@@ -96,6 +97,6 @@ Way 01: Configure `.npmrc` and install the library and its dependencies.
 Way 02: Install the package pointing directly to verdaccio's registry, then install the related dependencies.
   
   -  Install the package pointing directly to verdaccio's registry
-  ```bash
-  yarn add codemirror-readonly-ranges --registry http://localhost:4873
-  ```
+```bash
+yarn add codemirror-readonly-ranges --registry http://localhost:4873
+```
