@@ -1,8 +1,23 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { EditorState, StateEffect } from '@codemirror/state';
+import { EditorState, EditorStateConfig, Extension, StateEffect } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
-import { ICodeEditor } from './ICodeEditor';
-import { useFirstRender } from '../custom-hook/useFirstRender';
+
+//reference: https://github.com/sachinraja/rodemirror/blob/main/src/use-first-render.ts
+const useFirstRender = () => {
+  const firstRender = useRef(true)
+
+  useEffect(() => {
+    firstRender.current = false
+  }, [])
+
+  return firstRender.current
+}
+
+interface ICodeEditor {
+  onView: (view: EditorView | null) => void;
+  initialDocValue?: EditorStateConfig['doc'];
+  extensions?: Extension
+}
 
 const CodeEditor:React.FC<ICodeEditor> = ({onView, extensions = [], initialDocValue}) => {
 
@@ -49,7 +64,6 @@ useEffect(() => {
 
   return (
     <section ref={editorRef}>
-  
     </section>
   );
 }

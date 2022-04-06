@@ -1,7 +1,7 @@
 {
   "name": "codemirror-readonly-ranges",
   "version": "0.1.0-alpha.0",
-  "description": "Codemirror extension for readonly ranges",
+  "description": "CodeMirror extension for readonly ranges",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
@@ -20,7 +20,7 @@
     "build-storybook": "build-storybook"
   },
   "keywords": [
-    "Codemirror",
+    "CodeMirror",
     "Typescript",
     "Library"
   ],
@@ -30,7 +30,7 @@
     "type": "git",
     "url": "git+https://github.com/andrebnassis/codemirror-readonly-ranges.git"
   },
-  "homepage": "https://github.com/andrebnassis/codemirror-readonly-ranges#readme",
+  "homepage": "https://andrebnassis.github.io/codemirror-readonly-ranges",
   "bugs": {
     "url": "https://github.com/andrebnassis/codemirror-readonly-ranges/issues"
   },

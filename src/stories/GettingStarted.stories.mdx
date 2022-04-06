@@ -1,0 +1,59 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="2. Getting Started" />
+
+## Getting Started
+
+Let's get started! In order to have `codemirror-readonly-ranges` working, you need to follow these 2 steps:
+
+### Define the readonly ranges 
+First, you need to define a function that will tell us about the readonly ranges: `(targetState:EditorState) => Array<{from:number|undefined, to:number|undefined}>`
+
+#### Example: 
+
+Let's define a function called getReadOnlyRanges with following readonly ranges:
+
+ - from document start position until 3rd line end position
+ - from the last line start position until the document end position
+
+ ```typescript
+
+ import { EditorState } from '@codemirror/state';
+ 
+ const getReadOnlyRanges = (targetState:EditorState):Array<{from:number|undefined, to:number|undefined}> => {
+  return [
+    {
+   from: undefined, //same as: targetState.doc.line(0).from or 0
+   to: targetState.doc.line(3).to
+  },
+  {
+    from: targetState.doc.line(targetState.doc.lines).from, 
+    to: undefined // same as: targetState.doc.line(targetState.doc.lines).to
+  }
+  ]
+}
+
+ ```
+### Register the extension over CodeMirror extensions prop
+
+Second and last step, we need to register `codemirror-readonly-ranges` extension into CodeMirror's extensions prop. 
+
+You can choose between 2 ways of registering the extension:
+
+ ```typescript
+ //Way 01: Enable all 'codemirror-readonly-ranges' extension features
+
+ import readOnlyRangesExtension from 'codemirror-readonly-ranges'
+
+ ...
+  extensions=[readOnlyRangesExtension(getReadOnlyRanges)]
+```
+
+```typescript
+ //Way 02: Add each extension feature apart, in case you don't want some of the features on it
+
+ import { preventModifyTargetRanges, smartPaste, smartDelete } from 'codemirror-readonly-ranges'
+
+...
+  extensions=[smartPaste(getReadOnlyRanges), smartDelete(getReadOnlyRanges), preventModifyTargetRanges(getReadOnlyRanges)]
+ ```
