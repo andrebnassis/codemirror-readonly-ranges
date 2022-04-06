@@ -13,8 +13,9 @@
     "build:lib": "rollup -c",
     "verdaccio:up": "docker-compose -f verdaccio-docker-compose.yaml up -d",
     "verdaccio:down": "docker-compose -f verdaccio-docker-compose.yaml down -v",
+    "verdaccio:only-publish":"npm publish --registry http://localhost:4873/",
     "preverdaccio:publish": "cross-var $npm_execpath run verdaccio:down && cross-var $npm_execpath run verdaccio:up",
-    "verdaccio:publish": "npm publish --registry http://localhost:4873/",
+    "verdaccio:publish": "cross-var $npm_execpath run verdaccio:only-publish",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -75,6 +76,6 @@
   "peerDependencies": {
     "@codemirror/state": "^0.19.9",
     "@codemirror/view": "^0.19.48",
-    "range-analyzer": "^0.1.1-alpha.0"
+    "range-analyzer": "^0.1.1-alpha.1"
   }
 }
