@@ -6,12 +6,12 @@ import { Meta } from '@storybook/addon-docs';
 
 Let's get started! In order to have `codemirror-readonly-ranges` working, you need to follow these 2 steps:
 
-### Define the readonly ranges 
-First, you need to define a function that will tell us about the readonly ranges: `(targetState:EditorState) => Array<{from:number|undefined, to:number|undefined}>`
+### Define the read-only ranges 
+First, you need to define a function that will tell us about the read-only ranges: `(targetState:EditorState) => Array<{from:number|undefined, to:number|undefined}>`
 
 #### Example: 
 
-Let's define a function called getReadOnlyRanges with following readonly ranges:
+Let's define a function called getReadOnlyRanges with following read-only ranges:
 
  - from document start position until 3rd line end position
  - from the last line start position until the document end position

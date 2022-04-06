@@ -7,11 +7,11 @@ import { basicSetup } from "@codemirror/basic-setup"
 export const ReactSample:Story = () => {
 
   const initialCode = 
-  `readonly line 1
-readonly line 2
-readonly line 3
+  `read-only line 1
+  read-only line 2
+  read-only line 3
 <Here you can modify>
-readonly line 4` 
+read-only line 4` 
   
   const getReadOnlyRanges = (targetState:EditorState):Array<{from:number|undefined, to:number|undefined}> => {
     return [
