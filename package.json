@@ -13,11 +13,13 @@
     "build:lib": "rollup -c",
     "verdaccio:up": "docker-compose -f verdaccio-docker-compose.yaml up -d",
     "verdaccio:down": "docker-compose -f verdaccio-docker-compose.yaml down -v",
-    "verdaccio:only-publish":"npm publish --registry http://localhost:4873/",
+    "verdaccio:only-publish": "npm publish --registry http://localhost:4873/",
     "preverdaccio:publish": "cross-var $npm_execpath run verdaccio:down && cross-var $npm_execpath run verdaccio:up",
     "verdaccio:publish": "cross-var $npm_execpath run verdaccio:only-publish",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "predeploy": "cross-var $npm_execpath run build-storybook",
+    "deploy": "gh-pages -d storybook-static"
   },
   "keywords": [
     "CodeMirror",
@@ -62,6 +64,7 @@
     "@types/rollup-plugin-visualizer": "^4.2.1",
     "babel-loader": "^8.2.4",
     "cross-var": "^1.1.0",
+    "gh-pages": "^3.2.3",
     "range-analyzer": "^0.1.1-alpha.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
