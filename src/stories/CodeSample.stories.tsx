@@ -2,7 +2,7 @@ import { Story } from "@storybook/react"
 import CodeEditor from "./resources/CodeEditor"
 import readOnlyRangesExtension from '../lib/index'
 import { EditorState } from "@codemirror/state";
-import { basicSetup } from "@codemirror/basic-setup"
+import { basicSetup } from "codemirror"
 
 export const ReactSample:Story = () => {
 
