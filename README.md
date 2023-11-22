@@ -1,4 +1,6 @@
 # CodeMirror ReadOnly Ranges Extension
+**(Please consider giving a 🌟 to this repository if it is relevant for you)**
+
 https://www.npmjs.com/package/codemirror-readonly-ranges
 
 This library aims to help you dealing with read-only ranges on CodeMirror 6.
