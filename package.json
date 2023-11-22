@@ -1,6 +1,6 @@
 {
   "name": "codemirror-readonly-ranges",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "CodeMirror extension for read-only ranges",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -36,7 +36,9 @@
   "bugs": {
     "url": "https://github.com/andrebnassis/codemirror-readonly-ranges/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "range-analyzer": ">= 0.1.1-alpha.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.17.8",
     "@codemirror/basic-setup": "^0.19.3",
@@ -65,7 +67,6 @@
     "babel-loader": "^8.2.4",
     "cross-var": "^1.1.0",
     "gh-pages": "^3.2.3",
-    "range-analyzer": "^0.1.1-alpha.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "rimraf": "^3.0.2",
@@ -78,7 +79,6 @@
   },
   "peerDependencies": {
     "@codemirror/state": ">= 0.19.9",
-    "@codemirror/view": ">= 0.19.48",
-    "range-analyzer": ">= 0.1.1-alpha.1"
+    "@codemirror/view": ">= 0.19.48"    
   }
 }

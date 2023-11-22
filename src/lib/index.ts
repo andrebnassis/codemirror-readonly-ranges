@@ -83,10 +83,9 @@ catch(e){
                 },
               annotations: Transaction.userEvent.of(`input.paste.smart`)
             })
-            
-            return true;
+          }
         }
-      }
+        return true;
     }
     
   })
